@@ -1,13 +1,13 @@
 public class Pista {
 
-    /*private Coordenada coordenades;
+    private Cordenada Cordenadas;
 
-    public Coordenada getCoordenades() {
-        return coordenades;
+    public Cordenada getCoordenades() {
+        return Cordenadas;
     }
 
-    public void setCoordenades(Coordenada coordenades) {
-        this.coordenades = coordenades;
+    public void setCoordenades(Cordenada Cordenadas) {
+        this.Cordenadas = Cordenadas;
     }
-*/
+
 }

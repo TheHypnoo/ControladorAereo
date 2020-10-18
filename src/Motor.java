@@ -1,22 +1,22 @@
 public class Motor {
 
-    private boolean ences = false;
-    private boolean apagat = true;
+    private boolean encendido = false;
+    private boolean apagado = true;
 
 
     public void engegar() {
-        apagat = false;
-        ences = true;
+        apagado = false;
+        encendido = true;
     }
 
     public void apagar() {
-        ences = false;
-        apagat = true;
+        encendido = false;
+        apagado = true;
     }
 
     public String status() {
 
-        if (ences) {
+        if (encendido) {
 
             return "On";
 

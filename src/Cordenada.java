@@ -27,10 +27,10 @@ public class Cordenada {
     public void setZ(double z) {
         this.z = z;
     }
-/*
-    public Coordenada CoordenadaAterratge() {
 
-        Coordenada coordenadaAterratge = new Coordenada();
+    public Cordenada CordenadaDespegue() {
+
+        Cordenada coordenadaAterratge = new Cordenada();
 
         coordenadaAterratge.setX(100);
         coordenadaAterratge.setY(100);
@@ -39,5 +39,5 @@ public class Cordenada {
         return coordenadaAterratge;
 
     }
- */
+
 }

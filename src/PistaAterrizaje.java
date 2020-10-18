@@ -1,12 +1,12 @@
 public class PistaAterrizaje extends Pista {
 
     public PistaAterrizaje() {
-/*
-        Coordenada coordenadesAterratge = new Coordenada();
-        coordenadesAterratge.setX(100);
-        coordenadesAterratge.setY(100);
-        coordenadesAterratge.setZ(0);
- */
+
+        Cordenada CordenadaAterrizaje = new Cordenada();
+        CordenadaAterrizaje.setX(100);
+        CordenadaAterrizaje.setY(100);
+        CordenadaAterrizaje.setZ(0);
+
     }
 
 }

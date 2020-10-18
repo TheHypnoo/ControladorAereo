@@ -1,6 +1,6 @@
 public class Misil {
 
-    private int velocitat = 100;
+    private int velocidad = 100;
 
     private int quantitat = 0;
 

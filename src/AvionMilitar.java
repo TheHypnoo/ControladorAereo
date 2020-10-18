@@ -1,20 +1,21 @@
 public class AvionMilitar extends Avion {
 
-    private boolean xifrat;
-    private String bandol;
+    private boolean cifrado;
+    private String bando;
 
-    public boolean isXifrat() {
-        return xifrat;
+    public boolean isCifrado() {
+        return cifrado;
     }
 
-    public void setXifrat(boolean xifrat) {
-        this.xifrat = xifrat;
-    }
-    public String getBandol() {
-        return bandol;
+    public void setCifrado(boolean cifrado) {
+        this.cifrado = cifrado;
     }
 
-    public void setBandol(String bandol) {
-        this.bandol = bandol;
+    public String getBando() {
+        return bando;
+    }
+
+    public void setBando(String bando) {
+        this.bando = bando;
     }
 }
