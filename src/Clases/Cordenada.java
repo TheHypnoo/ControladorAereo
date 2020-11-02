@@ -1,3 +1,5 @@
+package Clases;
+
 public class Cordenada {
 
     private double x;
@@ -27,17 +29,17 @@ public class Cordenada {
     public void setZ(double z) {
         this.z = z;
     }
-/*
-    public Coordenada CoordenadaAterratge() {
 
-        Coordenada coordenadaAterratge = new Coordenada();
+    public Cordenada CordenadaAterrizaje() {
 
-        coordenadaAterratge.setX(100);
-        coordenadaAterratge.setY(100);
-        coordenadaAterratge.setZ(0);
+        Cordenada CordenadaAterrizaje = new Cordenada();
 
-        return coordenadaAterratge;
+        CordenadaAterrizaje.setX(100);
+        CordenadaAterrizaje.setY(100);
+        CordenadaAterrizaje.setZ(0);
+
+        return CordenadaAterrizaje;
 
     }
- */
+
 }
