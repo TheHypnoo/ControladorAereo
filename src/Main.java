@@ -1,7 +1,4 @@
-import Clases.Avion;
-import Clases.AvionMilitar;
-import Clases.Cordenada;
-import Clases.Encriptar;
+import Clases.*;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -14,7 +11,8 @@ public class Main {
     //Mostrar diferente el infoAvion();
 
     static Scanner sc = new Scanner(System.in);
-    public ArrayList<Avion> EspacioAereo = new ArrayList<>();
+    public ArrayList<Aviones> EspacioAereo = new ArrayList<>();
+    Aviones Aviones = new Aviones();
 
     public static void main(String[] args) {
         Main Start = new Main();
@@ -66,13 +64,12 @@ public class Main {
             System.out.println("Introduce la matricula del avión: ");
             matricula = sc.next();
 
-            for (Avion verify : EspacioAereo) {
+            for (Aviones verify : EspacioAereo) {
 
                 if (verify != null) {
                     if (matricula.equals(verify.getMatricula())) {
 
         String opcion;
-        String escoger;
         boolean salir = false;
         while (!salir) {
             System.out.println(Ansi.CYAN + "-------------------------------------");
@@ -91,164 +88,22 @@ public class Main {
                 opcion = sc.next();
                 switch (opcion.toUpperCase()) {
                     case "MOTOR" -> {
-                        System.out.println("ENCENDER");
-                        System.out.println("APAGAR");
-                        escoger = sc.next();
-                        switch (escoger.toUpperCase()) {
-                            case "ENCENDER" -> {
-                                if (!verify.getMotor()) {
-                                    System.out.println("Encendiendo el motor...");
-                                    Thread.sleep(3500);
-                                    System.out.println("Motor en marcha!");
-                                    verify.setMotor(true);
-                                } else {
-                                    System.out.println("El motor ya esta encendido");
-                                }
-                                Thread.sleep(1750);
-                            }
-                            case "APAGAR" -> {
-                                if (!verify.getMotor()) {
-                                    System.out.println("Apagando el motor...");
-                                    Thread.sleep(3500);
-                                    System.out.println("Motor apagado!");
-                                    verify.setMotor(false);
-                                } else {
-                                    System.out.println("El motor ya esta apagado");
-                                }
-                                Thread.sleep(1750);
-                            }
-                        }
+                        Aviones.CheckMotor();
                     }
                     case "VELOCIDAD" -> {
-                        if (!verify.getMotor()) {
-                            System.out.println("No puedes modificar la velocidad sin el motor en marcha");
-                        } else {
-                            System.out.println("ACELERAR");
-                            System.out.println("FRENAR");
-                            escoger = sc.next();
-                            switch (escoger.toUpperCase()) {
-                                case "ACELERAR" -> {
-                                        System.out.println("A que velocidad quieres acelerar?");
-                                        double velocidadAcelerar = sc.nextDouble();
-                                        if (velocidadAcelerar > verify.getVelocidad()) {
-                                            verify.setVelocidad(velocidadAcelerar);
-                                            System.out.println("Acelerando...");
-                                        } else {
-                                            System.out.println("No puedes ir más lento si estas acelerando");
-                                        }
-                                    Thread.sleep(1500);
-                                }
-                                case "FRENAR" -> {
-                                    System.out.println("A que velocidad quieres frenar?");
-                                    double velocidadFrenar = sc.nextDouble();
-                                    if (velocidadFrenar < verify.getVelocidad()) {
-                                        verify.setVelocidad(velocidadFrenar);
-                                        System.out.println("Frenando...");
-                                    } else {
-                                        System.out.println("No puedes ir más rapido si estas frenando");
-                                    }
-                                    Thread.sleep(1500);
-                                }
-                            }
-                        }
+                        Aviones.CheckVelocidad();
                     }
                     case "ALTITUD" -> {
-                        if (!verify.getMotor()) {
-                            System.out.println("No puedes modificar la altitud sin el motor en marcha");
-                        } else {
-                            System.out.println("SUBIR");
-                            System.out.println("BAJAR");
-                            escoger = sc.next();
-                            switch (escoger.toUpperCase()) {
-                                case "SUBIR" -> {
-                                    System.out.println("A que altitud quieres subir?");
-                                    double subirAltitud = sc.nextInt();
-                                    if (subirAltitud > verify.getAltitud()) {
-                                        verify.setAltitud(subirAltitud);
-                                        System.out.println("Subiendo altitud...");
-                                        Thread.sleep(1500);
-                                    } else if (subirAltitud > 50000) {
-                                        System.out.println("No puedes ir a la estratosfera");
-                                        Thread.sleep(1500);
-                                    } else {
-                                        System.out.println("No puedes ir a una altitud inferior si subes");
-                                        Thread.sleep(1500);
-                                    }
-                                }
-                                case "BAJAR" -> {
-                                    System.out.println("A que altitud quieres bajar?");
-                                    double bajarAltitud = sc.nextInt();
-                                    if (bajarAltitud < verify.getAltitud()) {
-                                        verify.setAltitud(bajarAltitud);
-                                        System.out.println("Bajando altitud...");
-                                        Thread.sleep(1500);
-                                    } else if (bajarAltitud < 0) {
-                                        System.out.println("No puedes bajar más de 0");
-                                        Thread.sleep(1500);
-                                    } else {
-                                        System.out.println("No puedes bajar una altitud superior a la que tienes");
-                                        Thread.sleep(1500);
-                                    }
-                                }
-                            }
-                        }
+                        Aviones.CheckAltitud();
                     }
                     case "TREN-ATERRIZAJE" -> {
-                        if (!verify.getMotor()) {
-                            System.out.println("No puedes modificar el tren de aterrizaje sin el motor en marcha");
-                        } else {
-                            if(verify.getAltitud() >= 500 && verify.getVelocidad() >= 300){
-                                System.out.println("No puedes bajar el tren de aterrizaje, hay demasiada altitud o demasiada velocidad");
-                            } else {
-                                System.out.println("BAJAR");
-                            }
-                            System.out.println("SUBIR");
-
-                            escoger = sc.next();
-                            switch (escoger.toUpperCase()) {
-
-                                case "SUBIR" -> {
-                                    if (!verify.getTrenAterrizaje()) {
-                                        System.out.println("El tren de aterrizaje esta subiendo...");
-                                        verify.setTrenAterrizaje(false);
-                                    }
-                                }
-                                case "BAJAR" -> {
-                                    if(verify.getAltitud() >= 500 && verify.getVelocidad() >= 300){
-                                        System.out.println("No puedes bajar el tren de aterrizaje, hay demasiada altitud o demasiada velocidad");
-                                    } else {
-                                        if (verify.getTrenAterrizaje()) {
-                                            System.out.println("Tren de aterrizaje bajando");
-                                            verify.setTrenAterrizaje(true);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        Aviones.CheckTrenAterrizaje();
                     }
                     case "RUMBO" -> {
-                        if (!verify.getMotor()) {
-                            System.out.println("No puedes modificar el rumbo sin el motor en marcha");
-                        } else {
-                            System.out.println("Establece el rumbo: ");
-                            int rumbo = sc.nextInt();
-
-                            if (rumbo >= 0 && rumbo <= 360) {
-                                verify.setRumbo(rumbo);
-                            } else {
-                                System.out.println("El rumbo debe estar entre 0 y 360");
-                            }
-                        }
+                        Aviones.CheckRumbo();
                     }
                     case "POSICIONAR" -> {
-                        System.out.println("Posiciona la X i la Y del avion");
-                        System.out.println("X:");
-                        double x = sc.nextDouble();
-                        System.out.println("Y:");
-                        double y = sc.nextDouble();
-
-                        verify.getCoordenades().setX(x);
-                        verify.getCoordenades().setY(y);
+                        Aviones.CheckPosicion();
                     }
                     case "MISILES" -> System.out.println("Null");
                     case "SALIR" -> {
@@ -297,6 +152,7 @@ public class Main {
 
             System.out.println("Introduce la autonomia del avión: ");
             int autonomia = sc.nextInt();
+
             System.out.println("COMERCIAL");
             System.out.println("MILITAR");
             String opcion = sc.next();
@@ -309,9 +165,9 @@ public class Main {
                 case "MILITAR" -> {
                     System.out.println("Introduce el bando del avión: ");
                     String bando = sc.next();
-                    AvionMilitar Militar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,bando);
-                    Militar.setCoordenades(PistaAterrizaje.CordenadaAterrizaje());
-                    EspacioAereo.add(Militar);
+                    AvionMilitar AvionMilitar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,bando);
+                    AvionMilitar.setCoordenades(PistaAterrizaje.CordenadaAterrizaje());
+                    EspacioAereo.add(AvionMilitar);
                 }
             }
 
@@ -358,7 +214,7 @@ public class Main {
         }
         for (int i = 0; i < EspacioAereo.size(); i++) {
 
-            Avion info = EspacioAereo.get(i);
+            Aviones info = EspacioAereo.get(i);
 
             if (info != null) {
 
@@ -387,7 +243,7 @@ public class Main {
     }
 
     public boolean checkPista() {
-        for (Avion check : EspacioAereo) {
+        for (Aviones check : EspacioAereo) {
 
             if (check != null) {
 
@@ -400,6 +256,7 @@ public class Main {
     }
 
     //Revisar encriptar y desencriptar!!
+    //Encriptar todo menos Matricula!!
     public void Encriptar(){
         if(EspacioAereo.size() == 0){
             System.out.println("No hay ningun avión, es imposible gestionarlo");
@@ -408,7 +265,7 @@ public class Main {
             System.out.println("Introdueix la matricula del avió: ");
             matricula = sc.next();
 
-            for (Avion check : EspacioAereo) {
+            for (Aviones check : EspacioAereo) {
 
                 if (check != null) {
 
@@ -438,7 +295,7 @@ public class Main {
             matricula = sc.next();
 
 
-                for (Avion check : EspacioAereo) {
+                for (Aviones check : EspacioAereo) {
 
                 if (check != null) {
 

@@ -1,6 +1,6 @@
 package Clases;
 
-public class AvionMilitar extends Avion {
+public class AvionMilitar extends Aviones {
 
     private boolean cifrado;
     private String bando;
@@ -19,11 +19,12 @@ public class AvionMilitar extends Avion {
     public void setCifrado(boolean cifrado) {
         this.cifrado = cifrado;
     }
-    public String getBando() {
-        return bando;
-    }
 
     public void setBando(String bando) {
         this.bando = bando;
+    }
+
+    public String getBando() {
+        return bando;
     }
 }
