@@ -1,4 +1,8 @@
+import Clases.AvionMilitar;
+import Clases.Aviones;
+
 import java.io.*;
+import java.nio.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,7 +10,7 @@ import java.util.Base64;
 
 public class Encriptar {
 
-    public Avion encriptar (Avion avion) {
+    public Aviones encriptar (AvionMilitar avion) {
 
         String encriptat;
         String arxiu = "hashes/"+avion.getMatricula()+".hash";
@@ -24,6 +28,8 @@ public class Encriptar {
         }
 
         avion.setMarca(Base64.getEncoder().encodeToString(avion.getMarca().getBytes(StandardCharsets.UTF_8)));
+        avion.setFabricante(Base64.getEncoder().encodeToString(avion.getFabricante().getBytes(StandardCharsets.UTF_8)));
+        avion.setCapacidad(Base64.getEncoder().encodeToString(avion.getCapacidad().getBytes(StandardCharsets.UTF_8)));
         avion.setModelo(Base64.getEncoder().encodeToString(avion.getModelo().getBytes(StandardCharsets.UTF_8)));
         avion.setCifrado(true);
 
@@ -32,7 +38,7 @@ public class Encriptar {
 
     }
 
-    public Avion desencriptar (Avion avion) {
+    public Aviones desencriptar (AvionMilitar avion) {
 
         String comparacio;
         String hash = "";

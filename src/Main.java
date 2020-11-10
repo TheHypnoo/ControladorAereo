@@ -12,7 +12,6 @@ public class Main {
 
     static Scanner sc = new Scanner(System.in);
     public ArrayList<Aviones> EspacioAereo = new ArrayList<>();
-    Aviones Aviones = new Aviones();
     String [][] EspacioAereoAux = new String [10][18];
     String [] arrayMostrarInfo = new String [18];
 
@@ -70,7 +69,6 @@ public class Main {
 
                     Aviones verify = EspacioAereo.get(i);
 
-
                 if (verify != null) {
                     if (matricula.equals(verify.getMatricula())) {
 
@@ -93,18 +91,18 @@ public class Main {
                 System.out.println(Ansi.WHITE + "Escribe una de las opciones");
                 opcion = sc.next();
                 switch (opcion.toUpperCase()) {
-                    case "MOTOR" -> Aviones.CheckMotor();
-                    case "VELOCIDAD" -> Aviones.CheckVelocidad();
+                    case "MOTOR" -> EspacioAereo = EspacioAereo.get(i).CheckMotor(EspacioAereo,i);
+                    case "VELOCIDAD" -> EspacioAereo = EspacioAereo.get(i).CheckVelocidad(EspacioAereo,i);
                     case "ALTITUD" -> {
-                        EspacioAereo = Aviones.CheckAltitud(EspacioAereo,i);
+                        EspacioAereo = EspacioAereo.get(i).CheckAltitud(EspacioAereo,i);
                         if(numeroAviones != EspacioAereo.size()) {
                             salir = true;
                             System.out.println("Te has estrellado");
                         }
                     }
-                    case "TREN-ATERRIZAJE" -> Aviones.CheckTrenAterrizaje();
-                    case "RUMBO" -> Aviones.CheckRumbo();
-                    case "POSICIONAR" -> Aviones.CheckPosicion();
+                    case "TREN-ATERRIZAJE" -> EspacioAereo = EspacioAereo.get(i).CheckTrenAterrizaje(EspacioAereo,i);
+                    case "RUMBO" -> EspacioAereo = EspacioAereo.get(i).CheckRumbo(EspacioAereo,i);
+                    case "POSICIONAR" -> EspacioAereo = EspacioAereo.get(i).CheckPosicion(EspacioAereo,i);
                     case "MISILES" -> System.out.println("Null");
                     case "SALIR" -> {
                         salir = true;
@@ -157,13 +155,13 @@ public class Main {
             String opcion = sc.next();
             switch (opcion.toUpperCase()){
                 case "COMERCIAL" ->{
-                    Avion Comercial = new Avion(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,true,0,0);
+                    Avion Comercial = new Avion(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,true,100,100);
                     EspacioAereo.add(Comercial);
                 }
                 case "MILITAR" -> {
                     System.out.println("Introduce el bando del avión: ");
                     String bando = sc.next();
-                    AvionMilitar AvionMilitar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,0,0,bando);
+                    AvionMilitar AvionMilitar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,100,100,bando);
                     EspacioAereo.add(AvionMilitar);
                 }
             }
