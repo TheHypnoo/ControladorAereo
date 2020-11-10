@@ -1,3 +1,5 @@
+package Clases;
+
 public class Misil {
 
     private int velocidad = 100;

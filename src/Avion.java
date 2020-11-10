@@ -1,30 +1,29 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Avion {
 
     private String matricula;
     private String marca;
-    private String modelo;
-    private String fabricante;
-    private int capacidad;
-    private int tripulantes;
+    private String model;
+    private String fabricant;
+    private int capacitat;
+    private int tripulants;
     private String origen;
-    private String destino;
-    private ArrayList<Misil> Misiles = new ArrayList<Misil>();
-    private double distanciaDisparo;
-    private Cordenada Cordenadas;
+    private String desti;
+    //private Missil[] missils;
+    private double distanciaDispar;
+    //private Coordenada coordenades;
     private int autonomia;
-    private int rumbo;
+    private int rumb;
     private Motor motor;
-    private double velocidad;
-    private double altura;
-    private boolean cifrado;
+    private double velocitat;
+    private double alcada;
+    private boolean xifrat;
 
 
-    private boolean trenAterrizaje;
+    private boolean trenAterratge;
 
-    Scanner sc = new Scanner(System.in);
+    Scanner lector = new Scanner(System.in);
 
     public String getMatricula() {
         return matricula;
@@ -42,36 +41,36 @@ public class Avion {
         this.marca = marca;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getModel() {
+        return model;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public String getFabricante() {
-        return fabricante;
+    public String getFabricant() {
+        return fabricant;
     }
 
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
+    public void setFabricant(String fabricant) {
+        this.fabricant = fabricant;
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public int getCapacitat() {
+        return capacitat;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setCapacitat(int capacitat) {
+        this.capacitat = capacitat;
     }
 
-    public int getTripulantes() {
-        return tripulantes;
+    public int getTripulants() {
+        return tripulants;
     }
 
-    public void setTripulantes(int tripulantes) {
-        this.tripulantes = tripulantes;
+    public void setTripulants(int tripulants) {
+        this.tripulants = tripulants;
     }
 
     public String getOrigen() {
@@ -82,38 +81,38 @@ public class Avion {
         this.origen = origen;
     }
 
-    public String getDestino() {
-        return destino;
+    public String getDesti() {
+        return desti;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setDesti(String desti) {
+        this.desti = desti;
+    }
+/*
+    public Missil[] getMissils() {
+        return missils;
     }
 
-    public ArrayList<Misil> getMisiles() {
-        return Misiles;
+    public void setMissils(Missil[] missils) {
+        this.missils = missils;
+    }
+*/
+    public double getDistanciaDispar() {
+        return distanciaDispar;
     }
 
-    public void setMisiles(ArrayList<Misil> Misiles) {
-        this.Misiles = Misiles;
+    public void setDistanciaDispar(double distanciaDispar) {
+        this.distanciaDispar = distanciaDispar;
+    }
+/*
+    public Coordenada getCoordenades() {
+        return coordenades;
     }
 
-    public double getDistanciaDisparo() {
-        return distanciaDisparo;
+    public void setCoordenades(Coordenada coordenades) {
+        this.coordenades = coordenades;
     }
-
-    public void setDistanciaDisparo(double distanciaDisparo) {
-        this.distanciaDisparo = distanciaDisparo;
-    }
-
-    public Cordenada getCoordenades() {
-        return Cordenadas;
-    }
-
-    public void setCoordenadas(Cordenada cordenadas) {
-        this.Cordenadas = cordenadas;
-    }
-
+*/
     public int getAutonomia() {
         return autonomia;
     }
@@ -122,12 +121,12 @@ public class Avion {
         this.autonomia = autonomia;
     }
 
-    public int getRumbo() {
-        return rumbo;
+    public int getRumb() {
+        return rumb;
     }
 
-    public void setRumbo(int rumbo) {
-        this.rumbo = rumbo;
+    public void setRumb(int rumb) {
+        this.rumb = rumb;
     }
 
     public Motor getMotor() {
@@ -138,64 +137,65 @@ public class Avion {
         this.motor = motor;
     }
 
-    public double getVelocidad() {
-        return velocidad;
+    public double getVelocitat() {
+        return velocitat;
     }
 
-    public void setVelocidad(double velocidad) {
-        this.velocidad = velocidad;
+    public void setVelocitat(double velocitat) {
+        this.velocitat = velocitat;
     }
 
-    public double getAltura() {
-        return altura;
+    public double getAlcada() {
+        return alcada;
     }
 
-    public void setAltura(double altura) {
-        this.altura = altura;
+    public void setAlcada(double alcada) {
+        this.alcada = alcada;
     }
 
-    public boolean isTrenAterrizaje() {
-        return trenAterrizaje;
+    public boolean isTrenAterratge() {
+        return trenAterratge;
     }
 
-    public void setTrenAterrizaje(boolean trenAterrizaje) {
-        this.trenAterrizaje = trenAterrizaje;
+    public void setTrenAterratge(boolean trenAterratge) {
+        this.trenAterratge = trenAterratge;
+    }
+    public boolean isXifrat() {
+        return xifrat;
     }
 
-    public boolean isCifrado() {
-        return cifrado;
+    public void setXifrat(boolean xifrat) {
+        this.xifrat = xifrat;
     }
+/*
+    public Avio generarAvio() {
 
-    public void setCifrado(boolean cifrado) {
-        this.cifrado = cifrado;
-    }
-
-    public Avion generarAvio() {
-
-        Avion avion = new Avion();
+        Avio avion = new Avio();
 
         System.out.println("Introdueix el model del avió: ");
-        String modelo = sc.next();
-        avion.setModelo(modelo);
+        String model = lector.next();
+        avion.setModel(model);
 
         System.out.println("Introdueix el fabricant: ");
-        String fabricante = sc.next();
-        avion.setFabricante(fabricante);
+        String fabricant = lector.next();
+        avion.setFabricant(fabricant);
 
         System.out.println("Introdueix la capacitat: ");
-        int capacidad = sc.nextInt();
-        avion.setCapacidad(capacidad);
+        int capacitat = lector.nextInt();
+        avion.setCapacitat(capacitat);
 
         System.out.println("Introdueix la matricula: ");
-        String matricula = sc.next();
+        String matricula = lector.next();
         avion.setMatricula(matricula);
 
         Motor motor = new Motor();
         motor.apagar();
 
         avion.setMotor(motor);
-        avion.setAltura(0);
+        avion.setAlcada(0);
 
         return avion;
+
     }
+ */
 }
