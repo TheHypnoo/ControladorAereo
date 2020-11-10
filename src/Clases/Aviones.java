@@ -1,5 +1,6 @@
 package Clases;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Aviones {
@@ -17,7 +18,6 @@ public class Aviones {
     private String destino;
     //private Missil[] missils;
     private double distanciaDisparo;
-    private Cordenada Cordenadas;
     private int autonomia;
     private int rumbo;
     private double velocidad;
@@ -26,7 +26,7 @@ public class Aviones {
     private int x;
     private int y;
 
-    public Aviones(String matricula, String marca, String modelo, String fabricante, int capacidad, int tripulantes, String origen, String destino, int autonomia,boolean motor, double altitud, double velocidad, int rumbo, boolean trenAterrizaje) {
+    public Aviones(String matricula, String marca, String modelo, String fabricante, int capacidad, int tripulantes, String origen, String destino, int autonomia,boolean motor, double altitud, double velocidad, int rumbo, boolean trenAterrizaje, int x,int y) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
@@ -41,6 +41,8 @@ public class Aviones {
         this.velocidad = velocidad;
         this.rumbo = rumbo;
         this.trenAterrizaje = trenAterrizaje;
+        this.x = x;
+        this.y = y;
     }
 
     public Aviones(){}
@@ -135,13 +137,6 @@ public class Aviones {
         return distanciaDisparo;
     }
 
-    public void setCoordenades(Cordenada Cordenadas) {
-        this.Cordenadas = Cordenadas;
-    }
-
-    public Cordenada getCoordenades() {
-        return Cordenadas;
-    }
 
     public void setAutonomia(int autonomia) {
         this.autonomia = autonomia;
@@ -181,6 +176,22 @@ public class Aviones {
 
     public boolean getTrenAterrizaje() {
         return trenAterrizaje;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
     }
 
 
@@ -248,9 +259,13 @@ public class Aviones {
         }
     }
 
-    public void CheckAltitud() throws InterruptedException {
+    public ArrayList<Aviones> CheckAltitud(ArrayList<Aviones> espacioAereo, int i) throws InterruptedException {
+        int posAvion = i;
         if (!getMotor()) {
             System.out.println("No puedes modificar la altitud sin el motor en marcha");
+            if (getVelocidad() < 180) {
+                System.out.println("No puedes despegar");
+            }
         } else {
             System.out.println("SUBIR");
             System.out.println("BAJAR");
@@ -272,27 +287,50 @@ public class Aviones {
                     }
                 }
                 case "BAJAR" -> {
-                    System.out.println("A que altitud quieres bajar?");
-                    double bajarAltitud = sc.nextInt();
-                    if (bajarAltitud < getAltitud()) {
-                        setAltitud(bajarAltitud);
-                        System.out.println("Bajando altitud...");
-                        Thread.sleep(1500);
-                    } else if (bajarAltitud < 0) {
-                        System.out.println("No puedes bajar más de 0");
-                        Thread.sleep(1500);
+
+                    if (getX() != 100 || getY() != 100) {
+                        String pregunta;
+                        System.out.println("Seguro que quieres bajar la altitud?, estas fuera de la zona de la pista de aterrizaje");
+                        if (getVelocidad() > 200) {
+                            System.out.println("Tu velocidad es superior para poder bajar la altitud, si lo haces, no sabes exactamente lo que sucedera...");
+                        }
+                        System.out.println("SI");
+                        System.out.println("NO");
+                        pregunta = sc.next();
+                        switch (pregunta.toUpperCase()) {
+                            case "SI" -> espacioAereo.remove(posAvion);
+                            case "NO" -> System.out.println("Hola");
+                        }
                     } else {
-                        System.out.println("No puedes bajar una altitud superior a la que tienes");
-                        Thread.sleep(1500);
+                        System.out.println("A que altitud quieres bajar?");
+                        double bajarAltitud = sc.nextInt();
+                        if (bajarAltitud < getAltitud()) {
+                            setAltitud(bajarAltitud);
+                            System.out.println("Bajando altitud...");
+                            Thread.sleep(1500);
+                        } else if (bajarAltitud < 0) {
+                            System.out.println("No puedes bajar más de 0");
+                            Thread.sleep(1500);
+                        } else {
+                            System.out.println("No puedes bajar una altitud superior a la que tienes");
+                            Thread.sleep(1500);
+                        }
                     }
                 }
             }
         }
+        return espacioAereo;
     }
 
     public void CheckTrenAterrizaje() {
         if (!getMotor()) {
             System.out.println("No puedes modificar el tren de aterrizaje sin el motor en marcha");
+            if(getAltitud() < 500) {
+                System.out.println("No puedes modificar el tren de aterrizaje sin tener una altitud minima de 500");
+            }
+            if(getAltitud() > 500 && getVelocidad() > 300) {
+                System.out.println("No puedes modificar el tren de aterrizaje a esa altitud/velocidad");
+            }
         } else {
             if(getAltitud() >= 500 && getVelocidad() >= 300){
                 System.out.println("No puedes bajar el tren de aterrizaje, hay demasiada altitud o demasiada velocidad");
@@ -346,8 +384,8 @@ public class Aviones {
         System.out.println("Y:");
         double y = sc.nextDouble();
 
-        getCoordenades().setX(x);
-        getCoordenades().setY(y);
+        setX(100);
+        setY(100);
     }
 
 }

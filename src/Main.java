@@ -6,13 +6,15 @@ import java.util.Scanner;
 
 public class Main {
 
-    //-Los colores para la ziguiente, gogo!
-    //-Meter, empezar videojuego, entrar en un ordenador, meter contraseña...
-    //Mostrar diferente el infoAvion();
+    //Solucionar tabla
+    //Poner misiles
+    //Encriptar y desencriptar
 
     static Scanner sc = new Scanner(System.in);
     public ArrayList<Aviones> EspacioAereo = new ArrayList<>();
     Aviones Aviones = new Aviones();
+    String [][] EspacioAereoAux = new String [10][18];
+    String [] arrayMostrarInfo = new String [18];
 
     public static void main(String[] args) {
         Main Start = new Main();
@@ -38,7 +40,7 @@ public class Main {
                 switch (opcion) {
                     case 1 -> generaAvion();
                     case 2 -> menuGestionaAviones();
-                    case 3 -> infoAvion();
+                    case 3 -> taulaAvions();
                     case 4 -> Encriptar();
                     case 5 -> Desencriptar();
                     case 6 -> {
@@ -56,18 +58,22 @@ public class Main {
     }
 
     public void menuGestionaAviones() {
-
         if(EspacioAereo.size() == 0){
             System.out.println("No hay ningun avión, es imposible gestionarlo");
         } else {
             String matricula;
             System.out.println("Introduce la matricula del avión: ");
             matricula = sc.next();
+            int numeroAviones = EspacioAereo.size();
 
-            for (Aviones verify : EspacioAereo) {
+            for (int i = 0; i < EspacioAereo.size(); i++) {
+
+                    Aviones verify = EspacioAereo.get(i);
+
 
                 if (verify != null) {
                     if (matricula.equals(verify.getMatricula())) {
+
 
         String opcion;
         boolean salir = false;
@@ -87,24 +93,18 @@ public class Main {
                 System.out.println(Ansi.WHITE + "Escribe una de las opciones");
                 opcion = sc.next();
                 switch (opcion.toUpperCase()) {
-                    case "MOTOR" -> {
-                        Aviones.CheckMotor();
-                    }
-                    case "VELOCIDAD" -> {
-                        Aviones.CheckVelocidad();
-                    }
+                    case "MOTOR" -> Aviones.CheckMotor();
+                    case "VELOCIDAD" -> Aviones.CheckVelocidad();
                     case "ALTITUD" -> {
-                        Aviones.CheckAltitud();
+                        EspacioAereo = Aviones.CheckAltitud(EspacioAereo,i);
+                        if(numeroAviones != EspacioAereo.size()) {
+                            salir = true;
+                            System.out.println("Te has estrellado");
+                        }
                     }
-                    case "TREN-ATERRIZAJE" -> {
-                        Aviones.CheckTrenAterrizaje();
-                    }
-                    case "RUMBO" -> {
-                        Aviones.CheckRumbo();
-                    }
-                    case "POSICIONAR" -> {
-                        Aviones.CheckPosicion();
-                    }
+                    case "TREN-ATERRIZAJE" -> Aviones.CheckTrenAterrizaje();
+                    case "RUMBO" -> Aviones.CheckRumbo();
+                    case "POSICIONAR" -> Aviones.CheckPosicion();
                     case "MISILES" -> System.out.println("Null");
                     case "SALIR" -> {
                         salir = true;
@@ -127,7 +127,6 @@ public class Main {
     }
 
     public void generaAvion() {
-        Cordenada PistaAterrizaje = new Cordenada();
         if (checkPista()) {
             System.out.println("Introduce la marca del avion: ");
             String modelo = sc.next();
@@ -158,15 +157,13 @@ public class Main {
             String opcion = sc.next();
             switch (opcion.toUpperCase()){
                 case "COMERCIAL" ->{
-                    Avion Comercial = new Avion(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,true);
-                    Comercial.setCoordenades(PistaAterrizaje.CordenadaAterrizaje());
+                    Avion Comercial = new Avion(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,true,0,0);
                     EspacioAereo.add(Comercial);
                 }
                 case "MILITAR" -> {
                     System.out.println("Introduce el bando del avión: ");
                     String bando = sc.next();
-                    AvionMilitar AvionMilitar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,bando);
-                    AvionMilitar.setCoordenades(PistaAterrizaje.CordenadaAterrizaje());
+                    AvionMilitar AvionMilitar = new AvionMilitar(generarMatricula(),marca, modelo, fabricante, capacidad, tripulantes, origen,destino,autonomia,false,0,0,0,false,true,0,0,bando);
                     EspacioAereo.add(AvionMilitar);
                 }
             }
@@ -182,6 +179,92 @@ public class Main {
         System.out.println("✈✈✈✈✈✈✈✈✈✈✈✈✈✈✈");
 
     }
+
+    public void omplirArrayAtributs()
+    {
+        arrayMostrarInfo[0]="        NOM";arrayMostrarInfo[1]="   MATRICULA";arrayMostrarInfo[2]=" MARCA";arrayMostrarInfo[3]="   MODEL";
+        arrayMostrarInfo[4]="   ORIGEN";arrayMostrarInfo[5]="  DESTI";arrayMostrarInfo[6]="   TREN_A";arrayMostrarInfo[7]="  MOTOR";
+        arrayMostrarInfo[8]="  ALÇADA";arrayMostrarInfo[9]="  VEL";arrayMostrarInfo[10]="   AUTONOMIA";arrayMostrarInfo[11]="  RUMB";
+        arrayMostrarInfo[12]="  CAP_TRIP";arrayMostrarInfo[13]="  X";arrayMostrarInfo[14]="       Y";arrayMostrarInfo[15]="   NÚM_AVIO";arrayMostrarInfo[16]="  CAP_PASS";
+        arrayMostrarInfo[17]="  BANDOL";
+    }
+
+    public void crearTaula(){
+        int cont=0;
+        int cont2;
+        omplirArrayAtributs();
+        for(int i =0;i<EspacioAereoAux.length && cont < EspacioAereo.size();i++)
+        {
+            cont2=0;
+            for(int j=0;j<EspacioAereoAux.length && cont < EspacioAereo.size() && cont2 !=2;j++)
+            {
+                EspacioAereoAux[i][j]=EspacioAereo.get(cont).getFabricante();
+                EspacioAereoAux[i][j+1]=EspacioAereo.get(cont).getMatricula();
+                EspacioAereoAux[i][j+2]=EspacioAereo.get(cont).getMarca();
+                EspacioAereoAux[i][j+3]=EspacioAereo.get(cont).getModelo();
+                EspacioAereoAux[i][j+4]=EspacioAereo.get(cont).getOrigen();
+                EspacioAereoAux[i][j+5]=EspacioAereo.get(cont).getDestino();
+                if(!EspacioAereo.get(cont).getTrenAterrizaje())
+                {
+                    EspacioAereoAux[i][j+6]="TANCAT";
+                }
+                else {
+                    if(EspacioAereo.get(cont).getTrenAterrizaje())
+                    {
+                        EspacioAereoAux[i][j+6]="OBERT";
+                    }
+                }if(!EspacioAereo.get(cont).getMotor())
+            {
+                EspacioAereoAux[i][j+7]="APAGAT";
+            }
+            else {
+                if(EspacioAereo.get(cont).getMotor())
+                {
+                    EspacioAereoAux[i][j+7]="ENCES";
+                }
+            }
+                EspacioAereoAux[i][j+8]=String.valueOf(EspacioAereo.get(cont).getAltitud());
+                EspacioAereoAux[i][j+9]=String.valueOf(EspacioAereo.get(cont).getVelocidad());
+                EspacioAereoAux[i][j+10]=String.valueOf(EspacioAereo.get(cont).getAutonomia());
+                EspacioAereoAux[i][j+11]=String.valueOf(EspacioAereo.get(cont).getRumbo());
+                EspacioAereoAux[i][j+12]=String.valueOf(EspacioAereo.get(cont).getTripulantes());
+                EspacioAereoAux[i][j+13]=String.valueOf(EspacioAereo.get(cont).getMarca());
+                EspacioAereoAux[i][j+14]=String.valueOf(EspacioAereo.get(cont).getMarca());
+                EspacioAereoAux[i][j+15]=String.valueOf(EspacioAereo.get(cont).getMarca());
+                EspacioAereoAux[i][j+16]=String.valueOf(EspacioAereo.get(cont).getCapacidad());
+                if(EspacioAereo.get(cont).getMotor()==true)
+                {
+                    EspacioAereoAux[i][j+17]="ALIAT";
+                }
+                else {
+                    EspacioAereoAux[i][j+17]="ENEMIC";
+                }
+                cont++;
+                cont2=2;
+            }
+            System.out.println();
+        }
+    }
+
+    public void taulaAvions()
+    {//Imprimim el array MOSTRAR INFO que nomes conte els noms dels atributs
+        crearTaula();
+        for (int fil=0;fil<arrayMostrarInfo.length;fil++)
+        {
+            System.out.print(arrayMostrarInfo[fil]);
+        }
+        System.out.println();
+        for (int fila=0;fila<EspacioAereo.size();fila++)
+        {
+            System.out.print("Avio"+ " "+ fila+"\t" );
+            for (int columna=0;columna<18;columna++)
+            {
+                System.out.print(EspacioAereoAux[fila][columna]+"\t");
+            }
+            System.out.println();
+        }
+    }
+
 
     public String generarMatricula() {
         StringBuilder matricula = new StringBuilder();
@@ -226,8 +309,8 @@ public class Main {
                 } else {
                     System.out.println("Matrícula: " + info.getMatricula());
                 }*/
-                System.out.println("X: " + info.getCoordenades().getX());
-                System.out.println("Y: " + info.getCoordenades().getY());
+                System.out.println("X: " + info.getX());
+                System.out.println("Y: " + info.getY());
                 System.out.println("Alçada: " + info.getAltitud());
                 System.out.println("Velocitat: " + info.getVelocidad());
                 System.out.println("Tren aterratge: " + info.getTrenAterrizaje());
@@ -247,7 +330,7 @@ public class Main {
 
             if (check != null) {
 
-                if (check.getCoordenades().getX() == 100 && check.getCoordenades().getY() == 100) {
+                if (check.getX() == 100 && check.getY() == 100) {
                     return false;
                 }
             }
