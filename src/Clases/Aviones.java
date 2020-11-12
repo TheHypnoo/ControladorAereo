@@ -195,17 +195,16 @@ public class Aviones {
 
 
     public ArrayList<Aviones> CheckMotor(ArrayList<Aviones> espacioAereo, int i) throws InterruptedException {
-        int posAvion = i;
         System.out.println("ENCENDER");
         System.out.println("APAGAR");
         String escoger = sc.next();
         switch (escoger.toUpperCase()) {
             case "ENCENDER" -> {
-                if (!espacioAereo.get(posAvion).getMotor()) {
+                if (!espacioAereo.get(i).getMotor()) {
                     System.out.println("Encendiendo el motor...");
                     Thread.sleep(3500);
                     System.out.println("Motor en marcha!");
-                    espacioAereo.get(posAvion).setMotor(true);
+                    espacioAereo.get(i).setMotor(true);
                 } else {
                     System.out.println("El motor ya esta encendido");
                 }
