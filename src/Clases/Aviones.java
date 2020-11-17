@@ -16,8 +16,6 @@ public class Aviones {
     private int tripulantes;
     private String origen;
     private String destino;
-    //private Missil[] missils;
-    private double distanciaDisparo;
     private int autonomia;
     private int rumbo;
     private double velocidad;
@@ -102,40 +100,21 @@ public class Aviones {
         this.tripulantes = tripulantes;
     }
 
-    public String getOrigen() {
-        return origen;
-    }
-
     public void setOrigen(String origen) {
         this.origen = origen;
     }
 
-    public String getDestino() {
-        return destino;
+    public String getOrigen() {
+        return origen;
     }
 
     public void setDestino(String destino) {
         this.destino = destino;
     }
 
-    /*
-    public Missil[] getMissils() {
-        return missils;
+    public String getDestino() {
+        return destino;
     }
-
-    public void setMissils(Missil[] missils) {
-        this.missils = missils;
-    }
-*/
-
-    public void setDistanciaDisparo(double distanciaDisparo) {
-        this.distanciaDisparo = distanciaDisparo;
-    }
-
-    public double getDistanciaDisparo() {
-        return distanciaDisparo;
-    }
-
 
     public void setAutonomia(int autonomia) {
         this.autonomia = autonomia;
@@ -193,7 +172,6 @@ public class Aviones {
         return y;
     }
 
-
     public ArrayList<Aviones> CheckMotor(ArrayList<Aviones> espacioAereo, int i) throws InterruptedException {
         System.out.println("ENCENDER");
         System.out.println("APAGAR");
@@ -211,7 +189,7 @@ public class Aviones {
                 Thread.sleep(1750);
             }
             case "APAGAR" -> {
-                if (!espacioAereo.get(i).getMotor()) {
+                if (espacioAereo.get(i).getMotor()) {
                     System.out.println("Apagando el motor...");
                     Thread.sleep(3500);
                     System.out.println("Motor apagado!");
@@ -226,7 +204,7 @@ public class Aviones {
     }
 
     public ArrayList<Aviones> CheckVelocidad(ArrayList<Aviones> espacioAereo, int i) throws InterruptedException {
-        if (!getMotor()) {
+        if (!espacioAereo.get(i).getMotor()) {
             System.out.println("No puedes modificar la velocidad sin el motor en marcha");
         } else {
             System.out.println("ACELERAR");
@@ -386,6 +364,33 @@ public class Aviones {
 
         espacioAereo.get(i).setX(x);
         espacioAereo.get(i).setY(y);
+        return espacioAereo;
+    }
+
+    public ArrayList<Aviones> Disparar(ArrayList<Aviones> espacioAereo, int i){
+        int numX1 = espacioAereo.get(i).getX()-100;
+        int numX2 = espacioAereo.get(i).getX()+100;
+        int numY1 = espacioAereo.get(i).getY()-100;
+        int numY2 = espacioAereo.get(i).getY()+100;
+        int contador = -1;
+        for(int encontraenemigo = 0; encontraenemigo < espacioAereo.size() ; encontraenemigo++){
+            if(!((AvionMilitar) espacioAereo.get(encontraenemigo)).getBando()) {
+                contador = encontraenemigo;
+            }
+        }
+
+        if(contador != -1) {
+            if((espacioAereo.get(contador).getX()>= numX1 && espacioAereo.get(contador).getX()<=numX2) && (espacioAereo.get(contador).getY()>=numY1 && espacioAereo.get(contador).getY()<=numY2)) {
+                if(!((AvionMilitar) espacioAereo.get(contador)).getBando()) {
+                    System.out.println("Enemigo encontrado, disparando...");
+                    espacioAereo.remove(contador);
+                    System.out.println("Derribado");
+                } else {
+                    System.out.println("No hemos encontrado a nadie");
+                }
+            }
+        }
+
         return espacioAereo;
     }
 
