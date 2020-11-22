@@ -96,6 +96,7 @@ public class Encriptar {
     }
 
     public Aviones desencriptar (AvionMilitar avion) {
+        //El desencriptamiento no funciona correctamente...
 
         String hash = "";
         String arxiu = "C:\\Temp/"+avion.getMatricula()+".hash";

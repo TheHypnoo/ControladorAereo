@@ -35,7 +35,19 @@ public class Main {
                 switch (opcion) {
                     case 1 -> generaAvion();
                     case 2 -> menuGestionaAviones();
-                    case 3 -> taulaAvions();
+                    case 3 -> {
+                        System.out.println("Escoge la modalidad de ver la información de el espacio aereo.");
+                        System.out.println("1-Tabla de Aviones");
+                        System.out.println("2-La información de los aviones(sin tabla)");
+                        opcion = sc.nextInt();
+                        switch(opcion){
+                            case 1 -> tablaAviones();
+                            case 2 -> InfoAviones();
+                        }
+
+                    }
+
+
                     case 4 -> Encriptar();
                     case 5 -> Desencriptar();
                     case 6 -> {
@@ -184,15 +196,14 @@ public class Main {
             if(EspacioAereo.size() == 11) {
                 System.out.println("No se puede crear más aviones");
             }
-            //Si quiero que haga BOOM
+            //Solo aviso, no hace BOOM!
             System.out.println("No puedes crear otro avión la pista esta llena");
         }
         System.out.println("✈✈✈✈✈✈✈✈✈✈✈✈✈✈✈");
 
     }
 
-    public void FullAtributos()
-    {
+    public void FullAtributos() {
         ArrTabla[0]="Fabricante ";
         ArrTabla[1]="Matricula ";
         ArrTabla[2]="Marca ";
@@ -251,12 +262,10 @@ public class Main {
         }
     }
 
-    public void taulaAvions()
-    {
+    public void tablaAviones() {
         creaTabla();
-        for (int fila = 0; fila < ArrTabla.length; fila++)
-        {
-            System.out.print(ArrTabla[fila]);
+        for (String s : ArrTabla) {
+            System.out.print(s);
         }
 
         System.out.println();
@@ -296,33 +305,40 @@ public class Main {
         return matricula.toString();
     }
 
-    public void infoAvion(){
+    public void InfoAviones(){
         if(EspacioAereo.size() == 0) {
             System.out.println("No hay ningun avion en el espacio aereo");
         }
-        for (int i = 0; i < EspacioAereo.size(); i++) {
-
-            Aviones info = EspacioAereo.get(i);
+        for (Aviones info : EspacioAereo) {
 
             if (info != null) {
 
-                System.out.println("Aeronau "+ (i+1));
+                System.out.println("Matrícula: " + info.getMatricula());
+                System.out.println("Fabricante " + info.getFabricante());
                 System.out.println("Marca: " + info.getMarca());
-                System.out.println("Model: " + info.getModelo());
-                /*if (info.getCifrado()) {
-                    System.out.println("Matricula: ENCRIPTAT");
-                } else {
-                    System.out.println("Matrícula: " + info.getMatricula());
-                }*/
+                System.out.println("Modelo: " + info.getModelo());
                 System.out.println("X: " + info.getX());
                 System.out.println("Y: " + info.getY());
-                System.out.println("Alçada: " + info.getAltitud());
-                System.out.println("Velocitat: " + info.getVelocidad());
-                System.out.println("Tren aterratge: " + info.getTrenAterrizaje());
+                System.out.println("Altitud: " + info.getAltitud());
+                System.out.println("Velocidad: " + info.getVelocidad());
+                System.out.println("Tren de Aterrizaje: " + info.getTrenAterrizaje());
                 System.out.println("Motor: " + info.getMotor());
-                // System.out.println("Misils: " + info.getMissils().length);
+                System.out.println("Autonomia: " + info.getAutonomia());
+                System.out.println("Rumbo: " + info.getRumbo());
+                System.out.println("Capacidad de Tripulantes: " + info.getTripulantes());
                 System.out.println("Origen: " + info.getOrigen());
-                System.out.println("Desti: " + info.getDestino());
+                System.out.println("Destino: " + info.getDestino());
+                //Para que no de un error con el cast hago el try catch!
+                try {
+                    System.out.println("Misiles: " + ((AvionMilitar) info).getMisiles());
+                    if (((AvionMilitar) info).getBando()) {
+                        System.out.println("Bando: Aliado");
+                    } else {
+                        System.out.println("Bando: Desconocido");
+                    }
+                } catch (ClassCastException e) {
+                    System.out.println("[Solo información de los aviones militares]");
+                }
             }
             System.out.println(" ");
 
@@ -404,4 +420,6 @@ public class Main {
         for (int i = 0; i < 50; i++)
             System.out.println();
     }
+
+    //Hecho por Sergi Gonzalez Lloria
 }

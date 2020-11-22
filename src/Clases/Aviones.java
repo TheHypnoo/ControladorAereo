@@ -1,5 +1,7 @@
 package Clases;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -355,7 +357,7 @@ public class Aviones {
         return espacioAereo;
     }
 
-    public ArrayList<Aviones> CheckPosicion(ArrayList<Aviones> espacioAereo, int i){
+    public ArrayList<Aviones> CheckPosicion(@NotNull ArrayList<Aviones> espacioAereo, int i){
         System.out.println("Posiciona la X i la Y del avion");
         System.out.println("X:");
         int x = sc.nextInt();
@@ -373,6 +375,7 @@ public class Aviones {
         int numY1 = espacioAereo.get(i).getY()-100;
         int numY2 = espacioAereo.get(i).getY()+100;
         int contador = -1;
+
         for(int encontraenemigo = 0; encontraenemigo < espacioAereo.size() ; encontraenemigo++){
             if(!((AvionMilitar) espacioAereo.get(encontraenemigo)).getBando()) {
                 contador = encontraenemigo;
